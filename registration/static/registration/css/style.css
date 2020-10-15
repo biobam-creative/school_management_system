@@ -1,0 +1,62 @@
+body{
+    background-color: gainsboro;
+}
+.my-link{
+    color: rgb(231, 147, 12);
+}
+
+h5.heading{
+    align-content: center;
+}
+
+a.dark{
+    color: white;
+}
+strong.balance{
+    color: teal;
+}
+.footer{
+    background: green;
+    color: white;
+
+}
+
+div.error{
+    color: red;
+}
+
+.logo{
+    display:block;
+    margin:20px auto;
+    width:100px;
+    height:100px;
+  }
+
+.bx{
+    box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.2);
+}
+
+.data{
+    background-color: white; 
+}
+
+.bg-red{
+    background-color: rgb(77, 77, 8);
+    color: white;
+}
+.bg-blue{
+    background-color: blue;
+    color: white;
+}
+.bg-green{
+    background-color: green;
+    color: white;
+}
+.vl{
+    border-left: 1px solid white;
+    height: 40px;
+
+}
+.thumbnail{
+    border-radius: 50%;
+}

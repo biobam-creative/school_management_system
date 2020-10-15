@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <title>BiobamLinks</title>
+    <link rel="stylesheet" href="{% static 'registration/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/bootstrap-grid.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/bootstrap-reboot.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/bootstrap-reboot.mins.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/all.css' %}">
+    <style type="text/css">
+        .root {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'registration:home' %}">Biobamlinks</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'registration:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active my-link" aria-current="page"
+                            href="{% url 'registration:dashboard' %}">Dashboard</a>
+                    </li>
+                </ul>
+
+
+                <div class="d-flex navbar-nav mb-2 mb-lg-0">
+                    <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                        {% for student in students %}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active"><img src="{{student.picture.url}}" class="thumbnail"
+                                    height="30px" width="30px" alt=""></a>
+                        </li>
+                        {% endfor %}
+                        {% for teacher in teachers %}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active"><img src="{{teacher.picture.url}}" class="thumbnail"
+                                    height="30px" width="30px" alt=""></a>
+                        </li>
+                        {% endfor %}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">Logged In as {{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{% url 'registration:logout' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" value="LogOut" class="btn btn-outline-light btn-sm">
+                            </form>
+                        </li>
+
+                        {% else %}
+
+                        <a class="nav-link" href="{% url 'registration:signup' %}">Sign Up</a>
+                        >
+
+                        <a class="nav-link" href="{% url 'registration:login' %}">Login</a>
+
+                        {% endif %}
+                    </ul>
+                </div>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+    <script src="{% static 'registration/js/jquery.min.js' %}"></script>
+    <script src="{% static 'registration/js/popper.min.js' %}"></script>
+    <script src="{% static 'registration/js/bootstrap.js' %}"></script>
+    <script src="{% static 'registration/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
