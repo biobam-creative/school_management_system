@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<form method="POST" enctype="multipart/form-data" class="form-control">
-{% csrf_token %}
-
-    {{ form.as_p }}
-    
-    <button type="submit" class="btn-sm btn-outline-primary">Upload</button>
-</form>
-
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-10">
+            <form method="POST" enctype="multipart/form-data" class="form-control">
+                {% csrf_token %}
+                <div class="justify-content-center">
+                    <span>{{form.subject.label}} {{form.subject}}</span>
+                    <span class="ml-3">{{form.session.label}}{{form.session}}</span>
+                    <span class="ml-3">{{form.term.label}}{{form.term}}</span>
+                </div>
+                <div class="justify-content-center">
+                    <span>{{form.for_class.label}} {{form.for_class}}</span>
+                    <span class="ml-3">{{form.uploaded_by.label}}{{form.uploaded_by}}</span>
+                    <span class="ml-3">{{form.csv.label}}{{form.csv}}</span>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn-sm btn-block btn-outline-warning">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{ message }}
 {% endblock %}

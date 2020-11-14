@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <form method="POST" class="form-group">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn-sm btn-outline-warning btn-block" value="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% if score %}
+    {% for student in students %}
+    <!--Report Card here -->
+    <div class="report-card justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-4-col-md-4">
+                <div>
+                    <h3> REPORT CARD</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-3 col-md-3 mb-3">
+                <img src="{% static 'registration/images/logo_black.png'%}" height="100px" width="100px">
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+
+                <div class="sch-address">
+                    <strong>Biobam International Schools</strong>
+                    <div>No. 6 Afolabi's Avenue Bananna Island</div>
+                    Lasgos State, Nigeria
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="report-pic">
+                    <img src="{{student.picture.url}}" height="100px" width="100px" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-4">
+
+            <div class="col-lg-4 col-md-4">
+                <strong>Name: {{student.user.last_name }} {{ student.user.first_name }}</strong>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <strong>Class: {{student_class}}</strong>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <strong>Session: {{session}} <span class="ml-3">Term: {{term}}</span></strong>
+            </div>
+
+        </div>
+        <div class="results">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Subjects</th>
+                        <th scope="col">First C.A</th>
+                        <th scope="col">Second C.A</th>
+                        <th scope="col">Third C.A</th>
+                        <th scope="col">Examination</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">Remark</th>
+                        <th scope="col">Total</th>
+
+                    </tr>
+                </thead>
+                {% for score in score %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <th>{{score.subject}}</th>
+                        <td>{{score.first_ca}}</td>
+                        <td>{{score.second_ca}}</td>
+                        <td>{{score.third_ca}}</td>
+                        <td>{{score.exam}}</td>
+                        <td>{{score.grade}}</td>
+                        <td>{{score.remark}}</td>
+                        <td>{{score.total}}</td>
+
+                    </tr>
+
+                    {% endfor %}
+                    <tr>
+                        <td> </td>
+                        <th>Total </th>
+                        <td>{{first_ca_total}} </td>
+                        <td>{{second_ca_total}}</td>
+                        <td>{{third_ca_total}} </td>
+                        <td>{{exam_total}} </td>
+                        <td></td>
+                        <td></td>
+                        <th scope="row">{{grand_total}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row justify-content-center mt-3 mb-3">
+                <table class="table mt-4">
+                    <tbody>
+                        <tr class="mr-5">
+
+                            <td class="mr-5">Class Teacher: {{student_class.class_teacher.title}}
+                                {{student_class.class_teacher}}</td>
+                            <td> Class Teacher's Signature: <img
+                                    src="{{student.student_class.class_teacher.signature.url}}" height="
+                            20px" width="100px"></td>
+                        </tr>
+                        {% for principal in principal %}
+                        <tr class="mr-5">
+                            <td class="mr-5">
+                                Principal: {{principal.teacher.title}} {{principal.last_name}}
+                                {{principal.first_name}}
+                            </td>
+                            <td>
+                                Principal's Signature: <img src="{{principal.teacher.signature.url}}" height="
+                                20px" width="100px">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <button onclick="window.print(); " target="_blank" style="cursor: pointer;"
+                    class="btn btn-sm btn-warning"><i class="fa fa-print"> Print</i></button>
+                <button class="btn btn-sm btn-warning"><i class="fa fa-download"> Download</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endif %}
+
+{% endblock %}

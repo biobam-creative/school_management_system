@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from . models import Student
+from . models import Student, StudentClass
 
 
 gender_choices = (
@@ -13,19 +13,10 @@ section_choices = (
     ('A', 'A'),
     ('B', 'B'),
 )
+student_class_choices = StudentClass.objects.all()
 
 
 class RegistrationForm(UserCreationForm):
-    student_class_choices = (
-
-        ('JSS1', 'JSS1'),
-        ('JSS2', 'JSS2'),
-        ('JSS3', 'JSS3'),
-        ('SSS1', 'SSS1'),
-        ('SSS2', 'SSS2'),
-        ('SSS3', 'SSS3'),
-
-    )
     username = forms.CharField(widget=forms.TextInput(
         attrs={'name': 'username', 'placeholder': 'Username', 'class': 'form-control', }))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(
@@ -38,8 +29,8 @@ class RegistrationForm(UserCreationForm):
         attrs={'name': 'first_name', 'placeholder': 'First Name', 'class': 'form-control', }))
     last_name = forms.CharField(widget=forms.TextInput(
         attrs={'name': 'last_name', 'placeholder': 'Surname', 'class': 'form-control', }))
-    student_class = forms.ChoiceField(choices=student_class_choices,
-                                      initial='Class', label='Class', widget=forms.Select(attrs={'name': 'first_name', 'placeholder': 'First Name', 'class': 'form-control', }))
+    student_class = forms.ModelChoiceField(queryset=student_class_choices,
+                                           initial='Class', label='Class', widget=forms.Select(attrs={'name': 'first_name', 'placeholder': 'First Name', 'class': 'form-control', }))
     date_of_birth = forms.DateField(help_text='Format: YYYY-MM-DD', widget=forms.DateInput(
         attrs={'name': 'dob', 'placeholder': 'Date Of Birth', 'class': 'form-control', }))
     picture = forms.ImageField(required=False,

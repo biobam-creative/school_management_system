@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for notice in notices %}
+<a href="{% url 'events:notice_detail' notice.id %}"> {{ notice.title }}</a>
+{% endfor %}
+{% endblock %}

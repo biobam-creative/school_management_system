@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'exams_results',
     'online_courses',
     'events',
+    'paystack',
+    'finance',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,9 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+            "libraries": {
+                "paystack": "paystack.frameworks.django.templatetags.paystack"
+            },
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -69,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media'
             ],
+
         },
     },
 ]

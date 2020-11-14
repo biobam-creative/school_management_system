@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import RegistrationForm, LoginForm
 from .models import Student, Teacher
 from events.models import Event, Notice
+from finance.models import SchoolFeeBalance
 
 
 def home(request):
@@ -56,24 +57,17 @@ def register(request):
 
 @login_required
 def dashboard(request):
-    if request.method == 'POST':
-
-        students = Student.objects.filter(user=request.user,)
-        teachers = Teacher.objects.filter(user=request.user,)
-        return render(request, 'registration/dashboard.html', {'students': students, 'teachers': teachers})
-    else:
-        event = Event.objects.order_by('-date_added')[:5]
-        notice = Notice.objects.order_by('-date')[:5]
-        students = Student.objects.filter(user=request.user,)
-        teachers = Teacher.objects.filter(user=request.user,)
-
-        return render(request, 'registration/dashboard.html', {'students': students, 'teachers': teachers, 'notice': notice, 'event': event})
+    event = Event.objects.order_by('-date_added')[:5]
+    notice = Notice.objects.order_by('-date')[:5]
+    students = Student.objects.filter(user=request.user,)
+    teachers = Teacher.objects.filter(user=request.user,)
+    return render(request, 'registration/dashboard.html', {'students': students, 'teachers': teachers, 'notice': notice, 'event': event})
 
 
 def logoutuser(request):
     if request.method == "POST":
         logout(request)
-        return redirect('registration:home')
+        return redirect('registration:login')
 
 
 def loginuser(request):

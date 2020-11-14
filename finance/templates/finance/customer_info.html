@@ -1,0 +1,10 @@
+<form method="POST">
+    
+    {% csrf_token %} 
+    
+    <div class="container">
+        {{customer_form.as_p}}
+    </div>
+    
+    <input type="submit" value="Proceed To Pay">
+</form>

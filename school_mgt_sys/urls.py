@@ -24,6 +24,8 @@ urlpatterns = [
     path('e_library', include('e_library.urls')),
     path('exams_results', include('exams_results.urls')),
     path('online_courses', include('online_courses.urls')),
+    path('finance', include('finance.urls')),
+    path('events', include('events.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
